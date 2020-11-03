@@ -23,7 +23,7 @@ class {
     }
 
     configureTimeout() {
-        setTimeout(this.gameLoop.bind(this), 250);
+        setTimeout(this.gameLoop.bind(this), 125);
     }
 
     gameLoop() {
@@ -68,28 +68,28 @@ class {
     }
 
     onClickUp() {
-        if (!this.state.gameOver) {
+        if (!this.state.gameOver && this.state.direction != Direction.DOWN) {
             this.state.direction = Direction.UP;
             this.state.message = "Turn UP";
         }
     }
 
     onClickDown() {
-        if (!this.state.gameOver) {
+        if (!this.state.gameOver && this.state.direction != Direction.UP) {
             this.state.direction = Direction.DOWN;
             this.state.message = "Turn DOWN";
         }
     }
 
     onClickLeft() {
-        if (!this.state.gameOver) {
+        if (!this.state.gameOver && this.state.direction != Direction.RIGHT) {
             this.state.direction = Direction.LEFT;
             this.state.message = "Turn LEFT";
         }
     }
 
     onClickRight() {
-        if (!this.state.gameOver) {
+        if (!this.state.gameOver && this.state.direction != Direction.LEFT) {
             this.state.direction = Direction.RIGHT;
             this.state.message = "Turn RIGHT";
         }
