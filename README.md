@@ -1,4 +1,4 @@
-# Thanks for checking out Marko
+# Little Snake Game built with MarkoJS
 
 ## Overview
 

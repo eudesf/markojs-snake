@@ -1,0 +1,110 @@
+import { Snake, Direction, GRID_SIZE } from "../app";
+
+class {
+    
+    onCreate() {
+        this.state = { 
+            squares: "", 
+            direction: Direction.RIGHT,
+            food: "",
+            size: 3,
+            message: "Hi!",
+            points: 0,
+            gameOver: false,
+        };
+        this.snake = {
+            head: {
+                x: 1,
+                y: 2,
+            },
+        }
+        this.createFood();
+        this.configureTimeout();
+    }
+
+    configureTimeout() {
+        setTimeout(this.gameLoop.bind(this), 250);
+    }
+
+    gameLoop() {
+        let nextHeadPosition = Snake.calculateNextHeadPosition(this.snake.head, this.state.direction);
+        if (Snake.verifyHeadPosition(nextHeadPosition, this.state.squares)) {
+            this.updateHeadPosition(nextHeadPosition);
+        } else {
+            this.state.message = "Game Over!";
+            this.state.gameOver = true;
+        }
+    }
+
+    updateHeadPosition(position) {
+        this.snake.head = position;
+        this.handleSquares();
+        this.handleFoodEat(position);
+        this.configureTimeout();
+    }
+
+    handleSquares() {
+        this.state.squares = Snake.addPositionStr(Snake.buildPositionStr(this.snake.head), this.state.squares);
+        while (this.state.squares.split(" ").length > this.state.size) {
+            this.state.squares = this.state.squares.replace(/\d\dx\d\d/, "").trim();
+        }
+    }
+
+    handleFoodEat(nextHeadPosition) {
+        if (Snake.hasPositionInStr(nextHeadPosition, this.state.food)) {
+            this.state.food = Snake.eatFoodAtPosition(nextHeadPosition, this.state.food);
+            this.createFood();
+            this.state.size++;
+            this.state.message = "Food!";
+            this.state.points += 10;
+        }
+    }
+
+    createFood() {
+        this.state.food = Snake.addPositionStr(
+            Snake.createFood(this.state.squares, this.state.food), 
+            this.state.food
+        );
+    }
+
+    onClickUp() {
+        if (!this.state.gameOver) {
+            this.state.direction = Direction.UP;
+            this.state.message = "Turn UP";
+        }
+    }
+
+    onClickDown() {
+        if (!this.state.gameOver) {
+            this.state.direction = Direction.DOWN;
+            this.state.message = "Turn DOWN";
+        }
+    }
+
+    onClickLeft() {
+        if (!this.state.gameOver) {
+            this.state.direction = Direction.LEFT;
+            this.state.message = "Turn LEFT";
+        }
+    }
+
+    onClickRight() {
+        if (!this.state.gameOver) {
+            this.state.direction = Direction.RIGHT;
+            this.state.message = "Turn RIGHT";
+        }
+    }
+}
+
+<div>
+    <button style="margin-left: 39px;" on-click("onClickUp")>^</button>
+    <br>
+    <button on-click("onClickLeft")>&lt;</button>
+    <button on-click("onClickDown")>v</button>
+    <button on-click("onClickRight")>&gt;</button>
+</div>
+
+<grid size=GRID_SIZE squares=state.squares direction=state.direction food=state.food />
+
+<h3>${state.message}</h3>
+<h3>Points: ${state.points}</h3>

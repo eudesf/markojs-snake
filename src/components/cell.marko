@@ -1,0 +1,27 @@
+class {
+    onCreate() {
+        this.state = { filled: false };
+    }
+
+}
+
+style {
+    .grid__cell {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-color: blue;
+    }
+    .grid__cell--filled {
+        background-color: yellow;
+    }
+    .grid__cell--food {
+        background-color: green;
+    }
+}
+
+<div class={
+    grid__cell: true,
+    "grid__cell--filled": input.filled,
+    "grid__cell--food": input.food
+}></div>

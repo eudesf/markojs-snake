@@ -1,0 +1,24 @@
+import { Snake } from "../app"
+
+style {
+    .grid {
+        display: inline-grid;
+        line-height: 0;
+    }
+    .grid__line {
+        display: inline-block;
+    }
+}
+
+<div class="grid">
+    <for|line| from=1 to=input.size>
+        <div class="grid__line">
+            <for|col| from=1 to=input.size>
+                <cell 
+                    filled=input.squares.includes(Snake.buildPositionStr({y: line, x: col}))
+                    food=input.food.includes(Snake.buildPositionStr({y: line, x: col}))
+                />
+            </for>
+        </div>
+    </for>
+</div>
