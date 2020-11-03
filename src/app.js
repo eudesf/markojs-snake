@@ -5,7 +5,7 @@ const Direction = {
     LEFT: 4,
 };
 
-const GRID_SIZE = 20
+const GRID_SIZE = 12
 
 class SnakeApp {
     
